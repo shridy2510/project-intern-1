@@ -1,0 +1,52 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update  # Tùy chọn: create, create-drop, update, validate, none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/son
+          jwk-set-uri: http://localhost:8080/realms/son/protocol/openid-connect/certs
+      client:
+        registration:
+          keycloak:
+            client-id: son-rest-api
+            authorization-grant-type: password
+            client-secret: 9iVVUQrpL5XvYeaNhma0Ms0a1QJEoqlC
+            scope: openid
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/son
+            user-name-attribute: preferred_username
+
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 2510
+    driver-class-name: org.postgresql.Driver
+
+
+jwt:
+  auth:
+    converter:
+      resource-id: son-rest-api
+      principle-attribute: preferred_username
+server:
+  port: 8081
+
+
+
+realm: son
+server-url: http://localhost:8080
+client-id: son-rest-api
+grant-type: password
+name: son
+password: son
+clientSecret: 9iVVUQrpL5XvYeaNhma0Ms0a1QJEoqlC
+
